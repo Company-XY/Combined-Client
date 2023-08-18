@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setUser, removeUser } from "../../store/Slices/userSlice";
+import { setUser } from "../../store/Slices/userSlice";
 import Client from "./clientDashboard";
 import Freelancer from "./freelancerDashboard";
 
@@ -37,11 +37,6 @@ const dashboard = () => {
     }
   };
 
-  const handleLogout = () => {
-    dispatch(removeUser(user));
-    navigate("/");
-  };
-
   const role = userData?.role;
 
   return (
@@ -57,7 +52,6 @@ const dashboard = () => {
       ) : (
         <p>Loading user data...</p>
       )}
-      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 };
