@@ -23,7 +23,7 @@ const Reset = () => {
 
   return (
     <main className="px-10 py-5 grid place-items-center w-full h-[90vh]">
-      <section>
+      <section className="max-w-2xl mx-auto">
         <h2 className="text-center text-2xl pb-2 mb-2">
           Enter your correct email address to reset password
         </h2>
