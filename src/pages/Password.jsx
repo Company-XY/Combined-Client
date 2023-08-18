@@ -1,25 +1,40 @@
 import { Link } from "react-router-dom";
-import { FaUserShield } from "react-icons/fa";
+import { RiLockPasswordFill } from "react-icons/ri";
 
-const Reset = () => {
+const Password = () => {
   return (
     <main className="px-10 py-5 grid place-items-center w-full h-[90vh]">
       <section>
         <h2 className="text-center text-2xl pb-2 mb-2">
-          Enter your correct email address to reset password
+          Create New Password for Assist Africa
         </h2>
         <form>
           <div className="flex flex-col gap-2">
-            <label className="flex gap-2" htmlFor="email">
+            <label className="flex gap-2" htmlFor="password">
               {" "}
               <span>
-                <FaUserShield size={20} />
+                <RiLockPasswordFill size={20} />
               </span>{" "}
-              Email Address
+              New Password
             </label>
             <input
               className="px-4 py-2 border rounded-lg"
-              type="email"
+              type="password"
+              required
+              placeholder=""
+            />
+          </div>
+          <div className="flex flex-col gap-2 mt-2 pt-2">
+            <label className="flex gap-2" htmlFor="password">
+              {" "}
+              <span>
+                <RiLockPasswordFill size={20} />
+              </span>{" "}
+              Confirm Password
+            </label>
+            <input
+              className="px-4 py-2 border rounded-lg"
+              type="password"
               required
               placeholder=""
             />
@@ -53,4 +68,4 @@ const Reset = () => {
   );
 };
 
-export default Reset;
+export default Password;
