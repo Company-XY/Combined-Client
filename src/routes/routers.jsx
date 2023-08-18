@@ -20,7 +20,7 @@ function Routers() {
       <Route path="/register/freelancer" element={<FreelancerRegister />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/reset" element={<Reset />} />
-      <Route path="/password" element={<Password />} />
+      <Route path="/password/:token" element={<Password />} />
     </Routes>
   );
 }

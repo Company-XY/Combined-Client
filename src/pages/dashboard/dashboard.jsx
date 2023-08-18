@@ -40,13 +40,10 @@ const dashboard = () => {
   const role = userData?.role;
 
   return (
-    <div>
+    <div className="px-10">
       <h2>Welcome to the Dashboard</h2>
       {userData ? (
-        <div>
-          <p>Name: {userData.name}</p>
-          <p>Email: {userData.email}</p>
-          <p>Role: {userData.role}</p>
+        <div className="px-5 py-2">
           <div>{role === "Client" ? <Client /> : <Freelancer />}</div>
         </div>
       ) : (

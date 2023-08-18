@@ -60,7 +60,7 @@ const freelancerRegister = () => {
         <p className="py-2 mb-2">
           Register as a Client instead{" "}
           <span>
-            <Link to="/register/freelancer">
+            <Link to="/register/client">
               {" "}
               <span className="font-semibold">Here</span>
             </Link>
