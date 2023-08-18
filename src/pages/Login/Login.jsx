@@ -45,7 +45,7 @@ const Login = () => {
 
   return (
     <main className="px-10 py-5 grid place-items-center w-full h-[90vh]">
-      <section>
+      <section className="max-w-2xl mx-auto">
         <h2 className="text-center font-semibold text-2xl pb-2 mb-2">
           Enter correct credentials to login
         </h2>
@@ -85,7 +85,7 @@ const Login = () => {
             />
           </div>
           {/*Should be styled to display error */}
-          <p className="error">{error}</p>
+          <p className="error text-red-400">{error}</p>
 
           <div className="w-full text-center grid place-items-center">
             <button
