@@ -14,12 +14,11 @@ const freelancerRegister = () => {
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [name, setName] = useState("");
-  const [consultation, setConsultation] = useState("");
-  const [type, setType] = useState("");
+  const [consultation, setConsultation] = useState(true);
+  const [type, setType] = useState("Individual");
   const [isLoading, setIsLoading] = useState(false);
   const [passwordError, setPasswordError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [validate, setValidate] = useState("");
+  const [error, setError] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -41,12 +40,10 @@ const freelancerRegister = () => {
         const user = response.data;
         setIsLoading(false);
         dispatch(setUser(user));
-        navigate("/login");
+        navigate("/dashboard");
       } catch (error) {
-        setEmailError("Email Already in Use");
-        setValidate(
-          "Password should consist of Alphanumeric characters with at least one special character"
-        );
+        setError(error.response.data.message);
+        setIsLoading(false);
       }
     } else {
       setPasswordError("Passwords Do not Match");
@@ -56,12 +53,12 @@ const freelancerRegister = () => {
 
   return (
     <main className="px-10 py-5 grid place-items-center w-full h-[90vh]">
-      <section>
+      <section className="max-w-2xl mx-auto">
         <h2 className="text-center font-semibold text-2xl pb-2 mb-2">
-          Enter correct credentials to join Assist Africa as a Client
+          Enter correct credentials to join Assist Africa as a Freelancer
         </h2>
         <p className="py-2 mb-2">
-          Register as a Freelancer instead{" "}
+          Register as a Client instead{" "}
           <span>
             <Link to="/register/freelancer">
               {" "}
@@ -78,7 +75,6 @@ const freelancerRegister = () => {
               required
               onChange={(e) => setType(e.target.value)}
             >
-              <option>---</option>
               <option value="Individual">Individual</option>
               <option value="Business">Business</option>
             </select>
@@ -115,16 +111,14 @@ const freelancerRegister = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <p className="text-red-400 py-2 my-2">{emailError}</p>
           <div className="my-3 py-2 flex flex-col gap-2">
-            <label>Do you Offer Consultation Services</label>
+            <label>Do you Offer Consultation services</label>
             <select
               className="px-4 py-2 border rounded-lg"
               value={consultation}
               required
               onChange={(e) => setConsultation(e.target.value === "true")}
             >
-              <option>---</option>
               <option value={true}>Yes</option>
               <option value={false}>No</option>
             </select>
@@ -145,8 +139,7 @@ const freelancerRegister = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <p className="text-red-400 py-2 my-2">{validate}</p>
-          <div className="flex flex-col gap-2 mb-2 py-2">
+          <div className="flex flex-col gap-2 py-2">
             <label className="flex gap-2 mt-2" htmlFor="password">
               {" "}
               <span>
@@ -162,6 +155,7 @@ const freelancerRegister = () => {
               onChange={(e) => setPassword2(e.target.value)}
             />
           </div>
+          <p className="text-red-400 py-2 my-2">{error}</p>
           <p className="text-red-400 py-2 my-2">{passwordError}</p>
           <div className="w-full text-center grid place-items-center">
             <button
