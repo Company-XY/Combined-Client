@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaUserShield } from "react-icons/fa";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { AiOutlineSwapRight } from "react-icons/ai";
+//import ReactLoading from "react-loading";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPass, setShowPass] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -37,14 +39,17 @@ const Login = () => {
       navigate("/dashboard");
       dispatch(setUser(user));
     } catch (error) {
-      //console.error("Wrong Login Details", { message: error.message });
       setError("Invalid Username or Password");
       setIsLoading(false);
     }
   };
 
+  const handleShowPassChange = () => {
+    setShowPass(!showPass);
+  };
+
   return (
-    <main className="px-10 py-5 grid place-items-center w-full h-[90vh]">
+    <main className="px-10 py-5 w-full h-[90vh] flex items-center justify-center">
       <section className="max-w-2xl mx-auto">
         <h2 className="text-center font-semibold text-2xl pb-2 mb-2">
           Enter correct credentials to login
@@ -77,12 +82,20 @@ const Login = () => {
             </label>
             <input
               className="px-4 py-2 border rounded-lg"
-              type="password"
+              type={showPass ? "text" : "password"}
               value={password}
               required
               placeholder=""
               onChange={(e) => setPassword(e.target.value)}
             />
+            <div className="flex gap-2">
+              <label htmlFor="showPass">Show Password</label>
+              <input
+                type="checkbox"
+                checked={showPass}
+                onChange={handleShowPassChange}
+              />
+            </div>
           </div>
           {/*Should be styled to display error */}
           <p className="error text-red-400">{error}</p>

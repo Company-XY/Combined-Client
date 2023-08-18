@@ -9,6 +9,7 @@ const Password = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
+  const [showPass, setShowPass] = useState(false);
 
   const { token } = useParams();
 
@@ -40,6 +41,10 @@ const Password = () => {
     }
   };
 
+  const handleShowPassChange = () => {
+    setShowPass(!showPass);
+  };
+
   return (
     <main className="px-10 py-5 grid place-items-center w-full h-[90vh]">
       <section className="max-w-2xl mx-auto">
@@ -57,7 +62,7 @@ const Password = () => {
             </label>
             <input
               className="px-4 py-2 border rounded-lg"
-              type="password"
+              type={showPass ? "text" : "password"}
               required
               value={password}
               placeholder=""
@@ -74,11 +79,19 @@ const Password = () => {
             </label>
             <input
               className="px-4 py-2 border rounded-lg"
-              type="password"
+              type={showPass ? "text" : "password"}
               value={password2}
               required
               placeholder=""
               onChange={(e) => setPassword2(e.target.value)}
+            />
+          </div>
+          <div className="flex gap-2">
+            <label htmlFor="showPass">Show Password</label>
+            <input
+              type="checkbox"
+              checked={showPass}
+              onChange={handleShowPassChange}
             />
           </div>
           <p className="text-red-400 py-2 my-2">{message}</p>

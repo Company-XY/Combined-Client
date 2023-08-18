@@ -19,6 +19,7 @@ const freelancerRegister = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [passwordError, setPasswordError] = useState("");
   const [error, setError] = useState("");
+  const [showPass, setShowPass] = useState(false);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -49,6 +50,10 @@ const freelancerRegister = () => {
       setPasswordError("Passwords Do not Match");
       setIsLoading(false);
     }
+  };
+
+  const handleShowPassChange = () => {
+    setShowPass(!showPass);
   };
 
   return (
@@ -133,7 +138,7 @@ const freelancerRegister = () => {
             </label>
             <input
               className="px-4 py-2 border rounded-lg"
-              type="password"
+              type={showPass ? "text" : "password"}
               required
               placeholder=""
               onChange={(e) => setPassword(e.target.value)}
@@ -149,10 +154,18 @@ const freelancerRegister = () => {
             </label>
             <input
               className="px-4 py-2 border rounded-lg"
-              type="password"
+              type={showPass ? "text" : "password"}
               required
               placeholder=""
               onChange={(e) => setPassword2(e.target.value)}
+            />
+          </div>
+          <div className="flex gap-2">
+            <label htmlFor="showPass">Show Password</label>
+            <input
+              type="checkbox"
+              checked={showPass}
+              onChange={handleShowPassChange}
             />
           </div>
           <p className="text-red-400 py-2 my-2">{error}</p>
