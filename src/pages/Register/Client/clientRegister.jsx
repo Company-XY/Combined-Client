@@ -18,6 +18,8 @@ const clientRegister = () => {
   const [type, setType] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [passwordError, setPasswordError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [validate, setValidate] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -41,7 +43,10 @@ const clientRegister = () => {
         dispatch(setUser(user));
         navigate("/login");
       } catch (error) {
-        console.error("Registration failed:", error);
+        setEmailError("Email Already in Use");
+        setValidate(
+          "Password should consist of Alphanumeric characters with at least one special character"
+        );
       }
     } else {
       setPasswordError("Passwords Do not Match");
@@ -110,6 +115,7 @@ const clientRegister = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
+          <p className="text-red-400">{emailError}</p>
           <div className="my-3 py-2 flex flex-col gap-2">
             <label>Do you Need Consultation services</label>
             <select
@@ -139,6 +145,7 @@ const clientRegister = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          <p className="text-red-400 py-2 my-2">{validate}</p>
           <div className="flex flex-col gap-2 mb-2 py-2">
             <label className="flex gap-2 mt-2" htmlFor="password">
               {" "}
@@ -155,7 +162,7 @@ const clientRegister = () => {
               onChange={(e) => setPassword2(e.target.value)}
             />
           </div>
-          <p className="text-red-400">{passwordError}</p>
+          <p className="text-red-400 py-2 my-2">{passwordError}</p>
           <div className="w-full text-center grid place-items-center">
             <button
               type="submit"
