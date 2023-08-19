@@ -24,7 +24,7 @@ const Header = () => {
   };
 
   return (
-    <main className="h-fit w-full flex justify-between py-2 px-5">
+    <main className="fixed top-0 bg-white shadow-md items-center w-full z-50 h-fit mb-2 flex justify-between py-2 px-5">
       <section className="py-2">
         <span className="font-semibold grid place-items-center cursor-pointer">
           {isAuthenticated ? (
