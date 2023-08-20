@@ -65,15 +65,7 @@ const Header = () => {
       ) : (
         <section className="flex gap-4 justify-evenly py-2">
           <nav className="text-center grid place-items-center cursor-pointer">
-            <ScrollLink
-              to="Home"
-              smooth={true}
-              duration={400}
-              offset={-100}
-              spy={true}
-            >
-              Home
-            </ScrollLink>
+            <RouterLink to="/">Home</RouterLink>
           </nav>
           <nav className="text-center grid place-items-center cursor-pointer">
             <ScrollLink
