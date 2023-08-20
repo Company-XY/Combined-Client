@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { removeUser } from "../store/Slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { Link as ScrollLink } from "react-scroll";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,15 @@ const Header = () => {
           {isAuthenticated ? (
             <span>Assist Africa</span>
           ) : (
-            <Link to="/">Assist Africa</Link>
+            <ScrollLink
+              to="Home"
+              smooth={true}
+              duration={400}
+              offset={-100}
+              spy={true}
+            >
+              Assist Africa
+            </ScrollLink>
           )}
         </span>
       </section>
@@ -56,13 +65,37 @@ const Header = () => {
       ) : (
         <section className="flex gap-4 justify-evenly py-2">
           <nav className="text-center grid place-items-center cursor-pointer">
-            Home
+            <ScrollLink
+              to="Home"
+              smooth={true}
+              duration={400}
+              offset={-100}
+              spy={true}
+            >
+              Home
+            </ScrollLink>
           </nav>
           <nav className="text-center grid place-items-center cursor-pointer">
-            About Us
+            <ScrollLink
+              to="About"
+              smooth={true}
+              duration={400}
+              offset={-70}
+              spy={true}
+            >
+              About Us
+            </ScrollLink>
           </nav>
           <nav className="text-center grid place-items-center cursor-pointer">
-            Contact Us
+            <ScrollLink
+              to="Contact"
+              smooth={true}
+              duration={400}
+              offset={-70}
+              spy={true}
+            >
+              Contact Us
+            </ScrollLink>
           </nav>
         </section>
       )}
@@ -80,16 +113,16 @@ const Header = () => {
         </section>
       ) : (
         <section className="flex gap-2 justify-around">
-          <Link to="/login">
+          <RouterLink to="/login">
             <button className="py-1 px-4 rounded-lg border hover:bg-hoverColor ">
               Login
             </button>
-          </Link>
-          <Link to="/register">
+          </RouterLink>
+          <RouterLink to="/register">
             <button className="py-1 px-4 rounded-lg border bg-hoverColor ">
               Get Started
             </button>
-          </Link>
+          </RouterLink>
         </section>
       )}
     </main>
