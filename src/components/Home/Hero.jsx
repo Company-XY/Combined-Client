@@ -15,12 +15,12 @@ const Hero = () => {
         </section>
         <section className="flex flex-col gap-2 text-center py-5">
           <div className=" text-center cursor-pointer hover:font-semibold">
-            <p className="bg-bgColor">
+            <p className="">
               <Link to="/register/client">Sign up now as a client</Link>
             </p>
           </div>
           <div className=" text-center cursor-pointer hover:font-semibold">
-            <p className=" bg-bgColor">
+            <p className="">
               <Link to="/register/freelancer">Sign up now as a freelancer</Link>
             </p>
           </div>
