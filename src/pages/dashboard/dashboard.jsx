@@ -41,10 +41,10 @@ const dashboard = () => {
 
   return (
     <div className="px-10 mt-5 pt-5">
-      <h2 className="text-center">Welcome to the Dashboard</h2>
+      <h2 className="text-center">Dashboard</h2>
       {userData ? (
         <div className="px-5 py-2">
-          <div>{role === "Client" ? <Client /> : <Freelancer />}</div>
+          <div>{role === "Freelancer" ? <Freelancer /> : <Client />}</div>
         </div>
       ) : (
         <p>Loading user data...</p>
