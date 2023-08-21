@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Jobs } from "../../constants/Jobs";
 
 const ITEMS_PER_PAGE = 10;
@@ -8,6 +9,9 @@ const FreelancerDashboard = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchBudget, setSearchBudget] = useState("");
   const [searchSkills, setSearchSkills] = useState("");
+  const [job, setJob] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [shouldFetch, setShouldFetch] = useState(true);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -68,6 +72,43 @@ const FreelancerDashboard = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const getJob = async () => {
+    try {
+      setLoading(true);
+      const userString = localStorage.getItem("user");
+      const user = JSON.parse(userString);
+
+      if (!user || !user.token) {
+        console.error("User token not found in localStorage.");
+        return;
+      }
+
+      const response = await axios.get(
+        "https://auth-server-0bsp.onrender.com/api/v1/jobs",
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+
+      const jobsData = response.data;
+      setJob(jobsData);
+      setLoading(false);
+      setShouldFetch(false);
+    } catch (error) {
+      console.error("Error fetching jobs:", error.message);
+      setLoading(false);
+      setShouldFetch(false);
+    }
+  };
+
+  useEffect(() => {
+    if (shouldFetch) {
+      getJob();
+    }
+  }, [shouldFetch]);
+
   return (
     <div>
       <div className="mb-4 text-center pb-5 bg-bgColor w-full h-fit flex justify-center items-center py-2 rounded-lg">
@@ -94,7 +135,7 @@ const FreelancerDashboard = () => {
         />
       </div>
       <div className="flex flex-wrap justify-center gap-4 max-w-6xl mx-auto">
-        {currentJobs.map(
+        {job.map(
           ({ index, title, description, budget, skills, dateCreated }) => (
             <div
               key={index}
@@ -112,12 +153,12 @@ const FreelancerDashboard = () => {
                   Budget: ${budget}
                 </span>
                 <div className="ml-auto">
-                  {skills.map((skill, index) => (
+                  {skills.map((skill, _id) => (
                     <span
-                      key={index}
+                      key={_id}
                       className="bg-gray-200 text-gray-600 py-1 px-2 rounded-md text-xs ml-2"
                     >
-                      {skill}
+                      {skill.label}
                     </span>
                   ))}
                 </div>
