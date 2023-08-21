@@ -8,7 +8,6 @@ const FreelancerDashboard = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchBudget, setSearchBudget] = useState("");
   const [searchSkills, setSearchSkills] = useState("");
-  const [searchTimeframe, setSearchTimeframe] = useState("");
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -22,11 +21,6 @@ const FreelancerDashboard = () => {
 
   const handleSearchSkillsChange = (event) => {
     setSearchSkills(event.target.value);
-    setCurrentPage(1);
-  };
-
-  const handleSearchTimeframeChange = (event) => {
-    setSearchTimeframe(event.target.value);
     setCurrentPage(1);
   };
 
@@ -65,8 +59,7 @@ const FreelancerDashboard = () => {
       (searchSkills === "" ||
         job.skills.some((skill) =>
           skill.toLowerCase().includes(searchSkills.toLowerCase())
-        )) &&
-      (searchTimeframe === "" || job.timeframe === searchTimeframe)
+        ))
   );
 
   const indexOfLastJob = currentPage * ITEMS_PER_PAGE;
