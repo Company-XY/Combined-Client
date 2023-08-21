@@ -34,7 +34,7 @@ const Dashboard = () => {
       setUserData(response.data);
       setTimeout(() => {
         setIsLoading(false);
-      }, Math.random() * 3000 + 5000);
+      }, Math.random() * 1000 + 3000);
     } catch (error) {
       console.error("Failed to fetch user data:", error);
     }

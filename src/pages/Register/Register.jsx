@@ -5,7 +5,7 @@ const Register = () => {
   return (
     <main
       id="Home"
-      className="bg-cover bg-center h-[88vh] w-full px-10 py-5 grid place-items-center"
+      className="bg-cover bg-center h-[89vh] w-full px-10 py-5 grid place-items-center"
     >
       <div className="px-24">
         <h2 className="font-semibold text-3xl text-center">
