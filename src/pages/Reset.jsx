@@ -48,7 +48,7 @@ const Reset = () => {
           <div className="w-full text-center grid place-items-center mt-2 pt-2">
             <button
               type="submit"
-              className="w-full grid place-items-center gap-2 rounded-lg hover:bg-hoverColor py-2 px-4 border"
+              className="bg-white w-full flex justify-center items-center text-blue-500 py-2 px-6 rounded-full text-lg md:text-xl font-semibold hover:bg-blue-600 hover:text-white transition duration-300"
             >
               <span className="flex text-center">
                 <span className="items-center">Reset Password</span>

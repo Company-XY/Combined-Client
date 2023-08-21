@@ -21,7 +21,6 @@ const clientRegister = () => {
   const [error, setError] = useState("");
   const [showPass, setShowPass] = useState(false);
 
-
   const handleRegister = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -58,8 +57,11 @@ const clientRegister = () => {
   };
 
   return (
-    <main className="px-10 py-5 grid place-items-center w-full h-[90vh]">
-      <section className="max-w-2xl mx-auto">
+    <main
+      id="Home"
+      className="bg-cover bg-center px-10 py-5 grid place-items-center w-full h-full"
+    >
+      <section className="max-w-2xl mx-auto mt-20 border-2 py-4 px-8 mb-20 rounded-xl shadow-lg">
         <h2 className="text-center font-semibold text-2xl pb-2 mb-2">
           Enter correct credentials to join Assist Africa as a Client
         </h2>
@@ -76,7 +78,7 @@ const clientRegister = () => {
           <div className="flex flex-col gap-2 py-2 mb-2">
             <label>Account Type</label>
             <select
-              className="px-4 py-2 border rounded-lg"
+              className={`w-full px-4 py-2 rounded-lg focus:outline-none border focus-ring focus:border-blue-500 mb-2`}
               value={type}
               required
               onChange={(e) => setType(e.target.value)}
@@ -94,7 +96,7 @@ const clientRegister = () => {
               Username
             </label>
             <input
-              className="px-4 py-2 border rounded-lg"
+              className={`w-full px-4 py-2 rounded-lg focus:outline-none border focus-ring focus:border-blue-500 mb-2`}
               type="text"
               required
               placeholder=""
@@ -110,7 +112,7 @@ const clientRegister = () => {
               Email Address
             </label>
             <input
-              className="px-4 py-2 border rounded-lg"
+              className={`w-full px-4 py-2 rounded-lg focus:outline-none border focus-ring focus:border-blue-500 mb-2`}
               type="email"
               required
               placeholder=""
@@ -120,7 +122,7 @@ const clientRegister = () => {
           <div className="my-3 py-2 flex flex-col gap-2">
             <label>Do you Need Consultation services</label>
             <select
-              className="px-4 py-2 border rounded-lg"
+              className={`w-full px-4 py-2 rounded-lg focus:outline-none border focus-ring focus:border-blue-500 mb-2`}
               value={consultation}
               required
               onChange={(e) => setConsultation(e.target.value === "true")}
@@ -138,7 +140,7 @@ const clientRegister = () => {
               Password
             </label>
             <input
-              className="px-4 py-2 border rounded-lg"
+              className={`w-full px-4 py-2 rounded-lg focus:outline-none border focus-ring focus:border-blue-500 mb-2`}
               type={showPass ? "text" : "password"}
               required
               placeholder=""
@@ -154,7 +156,7 @@ const clientRegister = () => {
               Confirm Password
             </label>
             <input
-              className="px-4 py-2 border rounded-lg"
+              className={`w-full px-4 py-2 rounded-lg focus:outline-none border focus-ring focus:border-blue-500 mb-2`}
               type={showPass ? "text" : "password"}
               required
               placeholder=""
@@ -174,7 +176,7 @@ const clientRegister = () => {
           <div className="w-full text-center grid place-items-center">
             <button
               type="submit"
-              className="flex gap-2 rounded-lg hover:bg-hoverColor py-2 px-4 border"
+              className="bg-white w-full flex justify-center items-center text-blue-500 py-2 px-6 rounded-full text-lg md:text-xl font-semibold hover:bg-blue-600 hover:text-white transition duration-300"
             >
               <span>
                 <AiOutlineSwapRight size={20} />
