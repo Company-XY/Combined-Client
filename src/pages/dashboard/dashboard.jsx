@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,12 +6,13 @@ import { setUser } from "../../store/Slices/userSlice";
 import Client from "./clientDashboard";
 import Freelancer from "./freelancerDashboard";
 
-const dashboard = () => {
+const Dashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.user);
 
-  const [userData, setUserData] = useState([]);
+  const [userData, setUserData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const userString = localStorage.getItem("user");
@@ -19,7 +20,6 @@ const dashboard = () => {
     if (userString) {
       const user = JSON.parse(userString);
       dispatch(setUser(user));
-      console.log(user);
       fetchUserData(user._id);
     } else {
       navigate("/");
@@ -32,25 +32,30 @@ const dashboard = () => {
         `https://auth-server-0bsp.onrender.com/api/v1/profile/${userId}`
       );
       setUserData(response.data);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, Math.random() * 3000 + 5000);
     } catch (error) {
       console.error("Failed to fetch user data:", error);
     }
   };
 
-  const role = userData?.role;
-
   return (
     <div className="px-10 mt-5 pt-5">
       <h2 className="text-center">Dashboard</h2>
-      {userData ? (
-        <div className="px-5 py-2">
-          <div>{role === "Freelancer" ? <Freelancer /> : <Client />}</div>
-        </div>
+      {isLoading ? (
+        <p>Loading user data...an animation will replace this for better UX</p>
       ) : (
-        <p>Loading user data...</p>
+        <div className="px-5 py-2">
+          {userData && userData.role === "Freelancer" ? (
+            <Freelancer />
+          ) : (
+            <Client />
+          )}
+        </div>
       )}
     </div>
   );
 };
 
-export default dashboard;
+export default Dashboard;

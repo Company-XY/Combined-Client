@@ -30,6 +30,34 @@ const FreelancerDashboard = () => {
     setCurrentPage(1);
   };
 
+  const PostedAt = ({ dateCreated }) => {
+    const currentTime = new Date();
+    const createdTime = new Date(dateCreated);
+    const timeDifference = currentTime - createdTime;
+
+    const seconds = Math.floor(timeDifference / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const weeks = Math.floor(days / 7);
+
+    if (weeks > 0) {
+      return <span>{`${weeks} ${weeks === 1 ? "week" : "weeks"} ago`}</span>;
+    } else if (days > 0) {
+      return <span>{`${days} ${days === 1 ? "day" : "days"} ago`}</span>;
+    } else if (hours > 0) {
+      return <span>{`${hours} ${hours === 1 ? "hour" : "hours"} ago`}</span>;
+    } else if (minutes > 0) {
+      return (
+        <span>{`${minutes} ${minutes === 1 ? "minute" : "minutes"} ago`}</span>
+      );
+    } else {
+      return (
+        <span>{`${seconds} ${seconds === 1 ? "second" : "seconds"} ago`}</span>
+      );
+    }
+  };
+
   const filteredJobs = Jobs.filter(
     (job) =>
       job.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
@@ -73,30 +101,37 @@ const FreelancerDashboard = () => {
         />
       </div>
       <div className="flex flex-wrap justify-center gap-4 max-w-6xl mx-auto">
-        {currentJobs.map(({ index, title, description, budget, skills }) => (
-          <div
-            key={index}
-            className="bg-white p-4 rounded-md shadow-md w-2/3 my-2 hover:bg-blue-300"
-          >
-            <h2 className="text-xl font-semibold">{title}</h2>
-            <p className="mt-2 text-gray-600">{description}</p>
-            <div className="flex items-center mt-4">
-              <span className="bg-blue-500 text-white py-1 px-2 rounded-md text-sm">
-                Budget: ${budget}
+        {currentJobs.map(
+          ({ index, title, description, budget, skills, dateCreated }) => (
+            <div
+              key={index}
+              className="bg-white cursor-pointer p-4 rounded-md shadow-md w-2/3 my-2 hover:bg-blue-300"
+            >
+              <span className="flex justify-between">
+                <h2 className="text-xl font-semibold">{title}</h2>
+                <p className="bg-blue-400 px-2 py-1 rounded-lg">
+                  <PostedAt dateCreated={dateCreated} />
+                </p>
               </span>
-              <div className="ml-auto">
-                {skills.map((skill, index) => (
-                  <span
-                    key={index}
-                    className="bg-gray-200 text-gray-600 py-1 px-2 rounded-md text-xs ml-2"
-                  >
-                    {skill}
-                  </span>
-                ))}
+              <p className="mt-2 text-gray-600">{description}</p>
+              <div className="flex items-center mt-4">
+                <span className="bg-blue-500 text-white py-1 px-2 rounded-md text-sm">
+                  Budget: ${budget}
+                </span>
+                <div className="ml-auto">
+                  {skills.map((skill, index) => (
+                    <span
+                      key={index}
+                      className="bg-gray-200 text-gray-600 py-1 px-2 rounded-md text-xs ml-2"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          )
+        )}
       </div>
       <div className="flex justify-center mt-4">
         {filteredJobs.length > ITEMS_PER_PAGE && (

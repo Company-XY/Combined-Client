@@ -49,7 +49,7 @@ const Login = () => {
   };
 
   return (
-    <main className="px-10 py-5 w-full h-[90vh] flex items-center justify-center">
+    <main id="Home" className="bg-cover bg-center px-10 py-5 w-full h-[90vh] flex items-center justify-center">
       <section className="max-w-2xl mx-auto">
         <h2 className="text-center font-semibold text-2xl pb-2 mb-2">
           Enter correct credentials to login
@@ -64,7 +64,7 @@ const Login = () => {
               Email Address
             </label>
             <input
-              className="px-4 py-2 border rounded-lg"
+              className={`w-full px-4 py-2 rounded-lg border focus:outline-none focus-ring focus:border-blue-500 mb-2`}
               type="email"
               value={email}
               required
@@ -81,7 +81,7 @@ const Login = () => {
               Password
             </label>
             <input
-              className="px-4 py-2 border rounded-lg"
+              className={`w-full px-4 py-2 rounded-lg border focus:outline-none focus-ring focus:border-blue-500 mb-2`}
               type={showPass ? "text" : "password"}
               value={password}
               required
@@ -98,12 +98,12 @@ const Login = () => {
             </div>
           </div>
           {/*Should be styled to display error */}
-          <p className="error text-red-400">{error}</p>
+          <p className="error text-red-400 mt-2 pt-2">{error}</p>
 
           <div className="w-full text-center grid place-items-center">
             <button
               type="submit"
-              className="w-full grid place-items-center gap-2 rounded-lg hover:bg-hoverColor py-2 px-4 border"
+              className="bg-white w-full flex justify-center items-center text-blue-500 py-2 px-6 rounded-full text-lg md:text-xl font-semibold hover:bg-blue-600 hover:text-white transition duration-300"
             >
               <span className="flex text-center gap-2">
                 <span>
