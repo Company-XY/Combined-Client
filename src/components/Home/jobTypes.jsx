@@ -22,7 +22,7 @@ const VirtualAssistanceTypes = () => {
   ];
 
   return (
-    <section className="virtual-assistance-section bg-gray-100 py-12 w-full rounded-xl">
+    <section className="virtual-assistance-section py-12 w-full rounded-xl">
       <div className="container mx-auto text-center">
         <h2 className="text-2xl md:text-3xl font-semibold mb-4">
           Types of Jobs on Our Platform

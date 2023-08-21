@@ -7,12 +7,13 @@ import NewsletterSection from "../components/Home/Newsletter";
 import VirtualAssistanceTypes from "../components/Home/jobTypes";
 import OnboardingProcess from "../components/Home/onboarding";
 import Testimonials from "../components/Home/Testimonials";
+import BackToTopButton from "../components/Home/BackToTop";
 
 const Home = () => {
   return (
     <div
       id="Home"
-      className="mt-[-4px] pt-10 px-10 bg-cover bg-center flex flex-col justify-between items-center w-full min-h-screen"
+      className="mt-[-60px] pt-10 px-10 bg-cover bg-center flex flex-col justify-between items-center w-full min-h-screen"
     >
       <Hero />
       <About />
@@ -22,6 +23,7 @@ const Home = () => {
       <CTASection />
       <Testimonials />
       <NewsletterSection />
+      <BackToTopButton />
       <Footer />
     </div>
   );
