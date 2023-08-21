@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function customFooter() {
   return (
-    <footer id="Contact" className="bg-gray-800 py-10 px-10 w-[90%] rounded-lg">
+    <footer id="Contact" className="bg-gray-800 py-10 px-10 w-full rounded-lg">
       <div className="container mx-auto flex flex-wrap justify-center">
         <div className="w-full md:w-1/3 px-4 mb-8">
           <p className="text-gray-400 hover:font-semibold cursor-pointer">
