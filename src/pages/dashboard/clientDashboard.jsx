@@ -91,6 +91,7 @@ const ClientDashboard = () => {
     } catch (error) {
       console.error(error);
       setError("Duplicate Title");
+      setIsLoading(false);
     }
   };
 
@@ -189,8 +190,8 @@ const ClientDashboard = () => {
         </form>
       </div>
       <div className="w-1/2 p-6 bg-white rounded shadow-md ml-8">
-        <div>
-          <h2 className="font-semibold text-xl">Projects</h2>
+        <div className="my-2">
+          <h2 className="font-semibold text-xl">My Projects</h2>
         </div>
         <section className="flex flex-col gap-2">
           {" "}
