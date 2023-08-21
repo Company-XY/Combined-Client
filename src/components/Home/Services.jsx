@@ -46,8 +46,8 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="services-section py-16 w-full">
-      <div className="container mx-auto">
+    <section id="Services" className="py-16 w-full">
+      <div className="mx-auto">
         <h2 className="text-3xl text-center mb-8">Our Services</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="bg-white p-6 shadow-lg rounded-xl">
