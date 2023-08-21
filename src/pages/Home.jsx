@@ -13,17 +13,19 @@ const Home = () => {
   return (
     <div
       id="Home"
-      className="mt-[-60px] pt-10 px-10 bg-cover bg-center flex flex-col justify-between items-center w-full min-h-screen"
+      className="mt-[-60px] pt-10 bg-cover bg-center flex flex-col justify-between items-center w-full min-h-screen"
     >
-      <Hero />
-      <About />
-      <Services />
-      <VirtualAssistanceTypes />
-      <OnboardingProcess />
-      <CTASection />
-      <Testimonials />
-      <NewsletterSection />
-      <BackToTopButton />
+      <div className="px-10">
+        <Hero />
+        <About />
+        <Services />
+        <VirtualAssistanceTypes />
+        <OnboardingProcess />
+        <CTASection />
+        <Testimonials />
+        <NewsletterSection />
+        <BackToTopButton />
+      </div>
       <Footer />
     </div>
   );

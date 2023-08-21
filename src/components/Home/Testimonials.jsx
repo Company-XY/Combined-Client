@@ -32,11 +32,11 @@ const testimonials = [
 const Testimonials = () => {
   return (
     <section className="py-16 w-full">
-      <div className="w-3/4 mx-auto">
+      <div className="w-full mx-auto">
         <h2 className="text-2xl font-semibold text-center mb-8">
           What Our Clients and Freelancers Say
         </h2>
-        <div className="max-w-4xl gap-10 mx-auto relative">
+        <div className="hidden md:flex max-w-4xl gap-10 mx-auto">
           <Carousel
             autoPlay
             interval={4000}
@@ -45,7 +45,7 @@ const Testimonials = () => {
             showThumbs={false}
             showArrows={true}
             stopOnHover={false}
-            className=""
+            className="grid place-items-center"
             emulateTouch
             swipeable
             centerMode
@@ -55,7 +55,7 @@ const Testimonials = () => {
             {testimonials.map((testimonial) => (
               <div
                 key={testimonial.id}
-                className="m-4 p-6 rounded-md shadow-md text-center sm:text-left h-full overflow-hidden"
+                className="m-2 p-2 rounded-lg border-2 shadow-lg h-full"
               >
                 <p className="text-lg mb-4">{testimonial.text}</p>
                 <p className="text-gray-600">
@@ -64,6 +64,19 @@ const Testimonials = () => {
               </div>
             ))}
           </Carousel>
+        </div>
+        <div className="flex flex-col md:hidden">
+          {testimonials.map((testimonial) => (
+            <div
+              key={testimonial.id}
+              className="m-2 p-2 rounded-lg border-2 shadow-lg h-full"
+            >
+              <p className="text-lg mb-4">{testimonial.text}</p>
+              <p className="text-gray-600">
+                - {testimonial.author}, {testimonial.role}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

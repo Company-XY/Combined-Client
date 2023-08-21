@@ -59,7 +59,7 @@ const Header = () => {
       <section className="py-2">
         <span className="font-semibold grid place-items-center cursor-pointer text-2xl">
           {isAuthenticated ? (
-            <RouterLink to="/">Assist Africa</RouterLink>
+            <RouterLink to="/dashboard">Assist Africa</RouterLink>
           ) : (
             <RouterLink to="/">Assist Africa</RouterLink>
           )}
