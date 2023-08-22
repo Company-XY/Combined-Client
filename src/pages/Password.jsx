@@ -46,7 +46,10 @@ const Password = () => {
   };
 
   return (
-    <main className="px-10 py-5 grid place-items-center w-full h-[90vh]">
+    <main
+      id="Home"
+      className="bg-cover bg-fixed px-10 py-5 grid place-items-center w-full h-[90vh]"
+    >
       <section className="max-w-2xl mx-auto">
         <h2 className="text-center text-2xl pb-2 mb-2">
           Create New Password for Assist Africa

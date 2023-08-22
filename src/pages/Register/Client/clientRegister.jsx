@@ -24,6 +24,7 @@ const clientRegister = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setError("");
 
     if (password === password2) {
       try {
