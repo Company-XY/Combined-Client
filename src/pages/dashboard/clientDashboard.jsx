@@ -3,6 +3,7 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { clearJob } from "../../store/Slices/jobSlice";
 import AsyncSelect from "react-select/async";
+import { formatDistanceToNow } from "date-fns";
 import { allVirtualAssistantSkills } from "../../constants/skills";
 
 const filterSkills = (inputValue) => {
@@ -35,9 +36,26 @@ const SkillSearchInput = ({ selectedSkills, onChange }) => {
   );
 };
 
+const calculateTimeAgo = (createdAt) => {
+  try {
+    const currentTime = new Date();
+    const postedTime = new Date(createdAt);
+
+    if (isNaN(postedTime)) {
+      throw new Error(`Invalid createdAt value: ${createdAt}`);
+    }
+
+    return `${formatDistanceToNow(postedTime)} ago`;
+  } catch (error) {
+    console.error("Error calculating time ago:", error);
+    return "Time calculation error";
+  }
+};
+
 const ClientDashboard = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [budget, setBudget] = useState("");
@@ -79,14 +97,13 @@ const ClientDashboard = () => {
         }
       );
 
-      console.log(response.data);
       setIsLoading(false);
       setSuccess(true);
       setTitle("");
       setDescription("");
       setBudget("");
       setDuration("");
-      setSkills("");
+      setSkills([]);
       dispatch(clearJob());
     } catch (error) {
       console.error(error);
@@ -106,7 +123,6 @@ const ClientDashboard = () => {
         );
         const allJobs = response.data;
 
-        // Filter jobs based on user's email
         const filteredJobs = allJobs.filter(
           (job) => job.user_email === user.email
         );
@@ -168,7 +184,7 @@ const ClientDashboard = () => {
           </div>
           <div className="mb-4">
             <label htmlFor="timeframe" className="block font-medium">
-              How long should be project take (Days)
+              How long should the project take (Days)
             </label>
             <input
               type="number"
@@ -194,23 +210,22 @@ const ClientDashboard = () => {
           <h2 className="font-semibold text-xl">My Projects</h2>
         </div>
         <section className="flex flex-col gap-2">
-          {" "}
-          {myjobs.map((myjobs) => (
+          {myjobs.map(({ _id, title, description, createdAt }) => (
             <div
               className="py-3 px-3 rounded-lg border hover:bg-blue-500 hover:text-gray-100"
-              key={myjobs._id}
+              key={_id}
             >
               <span className="flex justify-between">
-                <h5>{myjobs.title}</h5>
+                <h5>{title}</h5>
                 <h6>Status</h6>
               </span>
-              <p>{myjobs.description}</p>
+              <p>{description}</p>
               <p>Bids: 12</p>
-              <p>Posted: 2 hours ago</p>
+              <span>{calculateTimeAgo(createdAt)}</span>
             </div>
           ))}
         </section>
-      </div>{" "}
+      </div>
     </div>
   );
 };

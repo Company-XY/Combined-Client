@@ -49,7 +49,7 @@ const Login = () => {
   };
 
   return (
-    <main id="Home" className="bg-cover bg-center px-10 py-5 w-full h-[90vh] flex items-center justify-center">
+    <main id="Home" className="bg-cover bg-fixed px-10 py-5 w-full h-[90vh] flex items-center justify-center">
       <section className="max-w-2xl mx-auto">
         <h2 className="text-center font-semibold text-2xl pb-2 mb-2">
           Enter correct credentials to login

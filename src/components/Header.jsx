@@ -57,7 +57,7 @@ const Header = () => {
       } items-center bg-gray-100 w-full z-50 h-fit mb-2 flex justify-between py-2 px-5`}
     >
       <section className="py-2">
-        <span className="font-semibold grid place-items-center cursor-pointer text-2xl">
+        <span className="font-semibold grid place-items-center cursor-pointer text-2xl hover:text-blue-600">
           {isAuthenticated ? (
             <RouterLink to="/dashboard">Assist Africa</RouterLink>
           ) : (

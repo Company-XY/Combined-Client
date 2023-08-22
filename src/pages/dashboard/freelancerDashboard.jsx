@@ -1,77 +1,36 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Jobs } from "../../constants/Jobs";
-
-const ITEMS_PER_PAGE = 10;
+import { formatDistanceToNow, differenceInHours } from "date-fns";
 
 const FreelancerDashboard = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchBudget, setSearchBudget] = useState("");
-  const [searchSkills, setSearchSkills] = useState("");
-  const [job, setJob] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [shouldFetch, setShouldFetch] = useState(true);
+  const [job, setJob] = useState([]); // State to hold job data
+  const [loading, setLoading] = useState(false); // Loading state
+  const [shouldFetch, setShouldFetch] = useState(true); // Control when to fetch data
+  const [searchTitle, setSearchTitle] = useState(""); // Title search filter
+  const [searchSkills, setSearchSkills] = useState(""); // Skills search filter
+  const [searchBudgetMin, setSearchBudgetMin] = useState(""); // Min budget filter
+  const [searchBudgetMax, setSearchBudgetMax] = useState(""); // Max budget filter
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-    setCurrentPage(1);
-  };
+  // Filter jobs based on search criteria
+  const filteredJobs = job.filter((job) => {
+    const titleMatch = job.title
+      .toLowerCase()
+      .includes(searchTitle.toLowerCase());
+    const skillsMatch = job.skills.some((skill) =>
+      skill.label.toLowerCase().includes(searchSkills.toLowerCase())
+    );
+    const budgetMatch =
+      (!searchBudgetMin || job.budget >= searchBudgetMin) &&
+      (!searchBudgetMax || job.budget <= searchBudgetMax);
 
-  const handleSearchBudgetChange = (event) => {
-    setSearchBudget(event.target.value);
-    setCurrentPage(1);
-  };
+    const postedTime = new Date(job.createdAt);
+    const hoursSincePosted = differenceInHours(new Date(), postedTime);
+    const timePostedMatch = hoursSincePosted <= 24;
 
-  const handleSearchSkillsChange = (event) => {
-    setSearchSkills(event.target.value);
-    setCurrentPage(1);
-  };
+    return titleMatch && skillsMatch && budgetMatch && timePostedMatch;
+  });
 
-  const PostedAt = ({ dateCreated }) => {
-    const currentTime = new Date();
-    const createdTime = new Date(dateCreated);
-    const timeDifference = currentTime - createdTime;
-
-    const seconds = Math.floor(timeDifference / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-    const weeks = Math.floor(days / 7);
-
-    if (weeks > 0) {
-      return <span>{`${weeks} ${weeks === 1 ? "week" : "weeks"} ago`}</span>;
-    } else if (days > 0) {
-      return <span>{`${days} ${days === 1 ? "day" : "days"} ago`}</span>;
-    } else if (hours > 0) {
-      return <span>{`${hours} ${hours === 1 ? "hour" : "hours"} ago`}</span>;
-    } else if (minutes > 0) {
-      return (
-        <span>{`${minutes} ${minutes === 1 ? "minute" : "minutes"} ago`}</span>
-      );
-    } else {
-      return (
-        <span>{`${seconds} ${seconds === 1 ? "second" : "seconds"} ago`}</span>
-      );
-    }
-  };
-
-  const filteredJobs = Jobs.filter(
-    (job) =>
-      job.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (searchBudget === "" || job.budget >= parseInt(searchBudget)) &&
-      (searchSkills === "" ||
-        job.skills.some((skill) =>
-          skill.toLowerCase().includes(searchSkills.toLowerCase())
-        ))
-  );
-
-  const indexOfLastJob = currentPage * ITEMS_PER_PAGE;
-  const indexOfFirstJob = indexOfLastJob - ITEMS_PER_PAGE;
-  const currentJobs = filteredJobs.slice(indexOfFirstJob, indexOfLastJob);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
+  // Fetch job data from API
   const getJob = async () => {
     try {
       setLoading(true);
@@ -109,42 +68,69 @@ const FreelancerDashboard = () => {
     }
   }, [shouldFetch]);
 
+  // Calculate time ago from given createdAt
+  const calculateTimeAgo = (createdAt) => {
+    try {
+      const currentTime = new Date();
+      const postedTime = new Date(createdAt);
+
+      if (isNaN(postedTime)) {
+        throw new Error(`Invalid createdAt value: ${createdAt}`);
+      }
+
+      return `${formatDistanceToNow(postedTime)} ago`;
+    } catch (error) {
+      console.error("Error calculating time ago:", error);
+      return "Time calculation error";
+    }
+  };
+
   return (
     <div>
-      <div className="mb-4 text-center pb-5 bg-bgColor w-full h-fit flex justify-center items-center py-2 rounded-lg">
+      {/* Search inputs */}
+      <div className="bg-bgColor flex justify-between px-4 py-2 rounded-lg my-4">
         <input
+          className="px-4 py-2 rounded-lg"
           type="text"
           placeholder="Search by title"
-          className="border border-gray-300 p-2 rounded-md w-64"
-          value={searchTerm}
-          onChange={handleSearchChange}
+          value={searchTitle}
+          onChange={(e) => setSearchTitle(e.target.value)}
         />
         <input
-          type="text"
-          placeholder="Search by budget"
-          className="border border-gray-300 p-2 rounded-md w-64 ml-4"
-          value={searchBudget}
-          onChange={handleSearchBudgetChange}
-        />
-        <input
+          className="px-4 py-2 rounded-lg"
           type="text"
           placeholder="Search by skills"
-          className="border border-gray-300 p-2 rounded-md w-64 ml-4"
           value={searchSkills}
-          onChange={handleSearchSkillsChange}
+          onChange={(e) => setSearchSkills(e.target.value)}
+        />
+        <input
+          type="number"
+          className="px-4 py-2 rounded-lg"
+          placeholder="Min budget"
+          value={isNaN(searchBudgetMin) ? "" : searchBudgetMin}
+          onChange={(e) => setSearchBudgetMin(parseInt(e.target.value))}
+        />
+        <input
+          type="number"
+          className="px-4 py-2 rounded-lg"
+          placeholder="Max budget"
+          value={isNaN(searchBudgetMax) ? "" : searchBudgetMax}
+          onChange={(e) => setSearchBudgetMax(parseInt(e.target.value))}
         />
       </div>
-      <div className="flex flex-wrap justify-center gap-4 max-w-6xl mx-auto">
-        {job.map(
-          ({ index, title, description, budget, skills, dateCreated }) => (
+
+      {/* Display filtered jobs */}
+      <div className="flex flex-col items-center justify-center gap-4 max-w-6xl mx-auto">
+        {filteredJobs.map(
+          ({ _id, title, description, budget, skills, createdAt }) => (
             <div
-              key={index}
+              key={_id}
               className="bg-white cursor-pointer p-4 rounded-md shadow-md w-2/3 my-2 hover:bg-blue-300"
             >
               <span className="flex justify-between">
                 <h2 className="text-xl font-semibold">{title}</h2>
                 <p className="bg-blue-400 px-2 py-1 rounded-lg">
-                  <PostedAt dateCreated={dateCreated} />
+                  <span>{calculateTimeAgo(createdAt)}</span>
                 </p>
               </span>
               <p className="mt-2 text-gray-600">{description}</p>
@@ -165,27 +151,6 @@ const FreelancerDashboard = () => {
               </div>
             </div>
           )
-        )}
-      </div>
-      <div className="flex justify-center mt-4">
-        {filteredJobs.length > ITEMS_PER_PAGE && (
-          <ul className="pagination flex gap-2">
-            {Array.from(
-              { length: Math.ceil(filteredJobs.length / ITEMS_PER_PAGE) },
-              (_, index) => (
-                <li key={index}>
-                  <button
-                    onClick={() => paginate(index + 1)}
-                    className={`pagination-link ${
-                      currentPage === index + 1 ? "active" : ""
-                    }`}
-                  >
-                    {index + 1}
-                  </button>
-                </li>
-              )
-            )}
-          </ul>
         )}
       </div>
     </div>

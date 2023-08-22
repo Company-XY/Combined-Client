@@ -59,7 +59,7 @@ const clientRegister = () => {
   return (
     <main
       id="Home"
-      className="bg-cover bg-center px-10 py-5 grid place-items-center w-full h-full"
+      className="bg-cover bg-fixed px-10 py-5 grid place-items-center w-full h-full"
     >
       <section className="max-w-2xl mx-auto mt-20 border-2 py-4 px-8 mb-20 rounded-xl shadow-lg">
         <h2 className="text-center font-semibold text-2xl pb-2 mb-2">
