@@ -24,6 +24,8 @@ const freelancerRegister = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setError("");
+    setPasswordError("");
 
     if (password === password2) {
       try {

@@ -22,7 +22,10 @@ const Reset = () => {
   };
 
   return (
-    <main className="px-10 py-5 grid place-items-center w-full h-[90vh]">
+    <main
+      id="Home"
+      className="bg-cover bg-fixed px-10 py-5 grid place-items-center w-full h-[90vh]"
+    >
       <section className="max-w-2xl mx-auto">
         <h2 className="text-center text-2xl pb-2 mb-2">
           Enter your correct email address to reset password
@@ -44,7 +47,7 @@ const Reset = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <p className="text-red-400 py-2 my-2">{message}</p>
+          <p className="py-2 my-2">{message}</p>
           <div className="w-full text-center grid place-items-center mt-2 pt-2">
             <button
               type="submit"
