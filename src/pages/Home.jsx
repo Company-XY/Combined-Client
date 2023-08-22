@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <div
       id="Home"
-      className="mt-[-60px] pt-10 bg-cover bg-center flex flex-col justify-between items-center w-full min-h-screen"
+      className="mt-[-60px] pt-10 bg-cover bg-fixed flex flex-col justify-between items-center w-full min-h-screen"
     >
       <div className="px-10">
         <Hero />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -34,7 +34,7 @@ const Dashboard = () => {
       setUserData(response.data);
       setTimeout(() => {
         setIsLoading(false);
-      }, Math.random() * 1000 + 3000);
+      }, Math.random() * 100 + 300);
     } catch (error) {
       console.error("Failed to fetch user data:", error);
     }
